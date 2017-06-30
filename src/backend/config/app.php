@@ -177,6 +177,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Our own application services
+         */
+        App\TimeTracking\TimeTrackingServiceProvider::class,
     ],
 
     /*
