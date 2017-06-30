@@ -21,7 +21,7 @@ class DuractionFactory
     public static function fromString(string $in): Duration
     {
         $rest = strtolower(trim($in));
-        $regexp = '/^(\d+)([wdhm])([ ](.+))?$/';
+        $regexp = '/^(\d+)([wdhm])([ ]*(.+))?$/';
 
         $sizes = ['m' => 0, 'h' => 0, 'd' => 0, 'w' => 0];
 

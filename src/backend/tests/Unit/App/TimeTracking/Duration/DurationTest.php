@@ -128,5 +128,10 @@ class DurationTest extends TestCase
         $duration->normalize();
         $this->assertEquals(90, $duration->toMinutes());
         $this->assertEquals('1h 30m', (string) $duration);
+
+        $duration = DuractionFactory::fromString('2h30m');
+        $duration->normalize();
+        $this->assertEquals(150, $duration->toMinutes());
+        $this->assertEquals('2h 30m', (string) $duration);
     }
 }
