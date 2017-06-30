@@ -4,6 +4,7 @@ namespace App\TimeTracking;
 
 use App\TimeTracking\Entry\Commands\AddEntry;
 use App\TimeTracking\Entry\Commands\AddEntryConsole;
+use App\TimeTracking\Entry\Commands\ExportEntriesConsole;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -32,5 +33,8 @@ class TimeTrackingServiceProvider extends ServiceProvider
         $this->app->singleton(AddEntry::class);
         $this->app->singleton(AddEntryConsole::class);
         $this->commands(AddEntryConsole::class);
+
+        $this->app->singleton(ExportEntriesConsole::class);
+        $this->commands(ExportEntriesConsole::class);
     }
 }
