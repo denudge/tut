@@ -16,8 +16,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Entry extends Model
 {
+    /**
+     * @var string
+     */
     protected $table = 'entries';
 
+    /**
+     * @var array
+     */
     protected $fillable = [
         'user_id',
         'period',
@@ -27,5 +33,7 @@ class Entry extends Model
         'duration',
         'project_id',
         'ticket',
+        'activity_id',
+        'description',
     ];
 }

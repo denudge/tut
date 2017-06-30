@@ -29,6 +29,13 @@ class CreateTimeTrackingTables extends Migration
             $table->timestamps();
         });
 
+        Schema::create('activities', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 63)->unique();
+            $table->string('description', 255);
+            $table->timestamps();
+        });
+
         Schema::create('entries', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
@@ -37,8 +44,10 @@ class CreateTimeTrackingTables extends Migration
             $table->dateTime('start');
             $table->dateTime('end');
             $table->integer('duration');
-            $table->integer('project_id');
+            $table->integer('project_id', 0);
             $table->string('ticket', 31);
+            $table->integer('activity_id', 31);
+            $table->string('description', 255);
             $table->timestamps();
         });
     }
