@@ -46,7 +46,7 @@ class CreateTimeTrackingTables extends Migration
             $table->integer('duration');
             $table->integer('project_id', 0);
             $table->string('ticket', 31);
-            $table->integer('activity_id', 31);
+            $table->integer('activity_id');
             $table->string('description', 255);
             $table->timestamps();
         });
