@@ -60,6 +60,7 @@ class CreateTimeTrackingTables extends Migration
     public function down()
     {
         Schema::dropIfExists('entries');
+        Schema::dropIfExists('activities');
         Schema::dropIfExists('projects');
         Schema::dropIfExists('jira_instances');
     }
