@@ -8,7 +8,10 @@
 
 namespace App\TimeTracking\Duration;
 
-
+/**
+ * Class DurationFormatter
+ * @package App\TimeTracking\Duration
+ */
 class DurationFormatter
 {
     /**
