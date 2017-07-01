@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Project
  * @package App\TimeTracking\Project
  *
+ * @property int $customer_id
  * @property string $name
  * @property string $description
  * @property int $instance_id
@@ -24,6 +25,7 @@ class Project extends Model
     protected $table = 'projects';
 
     protected $fillable = [
+        'customer_id',
         'name',
         'description',
         'instance_id',

@@ -65,6 +65,7 @@ class AddEntry
         $entry = Entry::create([
             'user_id' => 0,
             'period' => $period,
+            'customer_id' => 0,
             'project_id' => 0,
             'activity_id' => 0,
             'date' => $day,

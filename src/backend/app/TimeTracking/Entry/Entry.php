@@ -31,6 +31,7 @@ class Entry extends Model
         'start',
         'end',
         'duration',
+        'customer_id',
         'project_id',
         'ticket',
         'activity_id',
