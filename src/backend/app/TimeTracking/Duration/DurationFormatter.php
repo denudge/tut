@@ -16,6 +16,8 @@ class DurationFormatter
 {
     /**
      * Time is defined as [HH]:MM in well-known spreadsheet applications
+     * @param int $minutes
+     * @return string
      */
     public static function minutesToTime(int $minutes)
     {
@@ -24,5 +26,20 @@ class DurationFormatter
             str_pad((int) floor($minutes / Duration::HOUR) . '', 2, '0', STR_PAD_LEFT),
             $minutes % Duration::HOUR
         );
+    }
+
+    /**
+     * @param int $value
+     * @param int $steps
+     * @return int
+     */
+    public static function quantize(int $value, int $steps = 0)
+    {
+        if ($steps <= 0) {
+            return $value;
+        }
+
+        $factor = (int) ceil($value / $steps);
+        return (int) ($factor * $steps);
     }
 }

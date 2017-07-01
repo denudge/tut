@@ -19,7 +19,7 @@ class AddEntryConsole extends Command
     /**
      * @var string
      */
-    protected $signature = 'entry:add {ticket} {duration} {description}';
+    protected $signature = 'entry:add {duration} {ticket} {description}';
 
     /**
      * @var string

@@ -10,6 +10,7 @@ namespace App\TimeTracking\Entry\Commands;
 
 use App\TimeTracking\Duration\DuractionFactory;
 use App\TimeTracking\Duration\Duration;
+use App\TimeTracking\Duration\DurationFormatter;
 use App\TimeTracking\Entry\Entry;
 
 /**
@@ -52,6 +53,8 @@ class AddEntry
             $result = $this->detectDuration($matches[2] ?? 0);
             $minutes = $result['minutes'];
             $start = $result['start'];
+            $end = new \DateTime($start->format('c'));
+            $end->add(new \DateInterval('PT' . $minutes . 'M'));
         } else {
             $dur = DuractionFactory::fromString($duration);
             $minutes = $dur->toMinutes();
@@ -96,13 +99,10 @@ class AddEntry
 
         $start = new \DateTime($lastEntry->end);
         $interval = $end->diff($start);
-        $minutes = abs(Duration::HOUR * $interval->h + $interval->m);
+        $minutes = abs(Duration::HOUR * (int) $interval->h + (int) $interval->i);
 
         // quantize
-        if ($quantize > 0) {
-            $factor = (int) ceil($minutes / $quantize);
-            $minutes = (int) ($factor * $quantize);
-        }
+        $minutes = DurationFormatter::quantize($minutes, $quantize);
 
         return [
             'minutes' => $minutes,

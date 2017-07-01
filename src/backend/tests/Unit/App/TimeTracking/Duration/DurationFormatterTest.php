@@ -33,4 +33,23 @@ class DurationFormatterTest extends TestCase
             $this->assertEquals($time, DurationFormatter::minutesToTime($minutes));
         }
     }
+
+    public function testQuantize()
+    {
+        $expectations = [
+            60 => [51, 15],
+            15 => [1, 15],
+            10 => [10, 10],
+            30 => [16, 15],
+            17 => [17, 0],
+            16 => [16, 1],
+            18 => [17, 2],
+            21 => [19, 3],
+            20 => [17, 4],
+        ];
+
+        foreach ($expectations as $expectedResult => $arguments) {
+            $this->assertEquals($expectedResult, DurationFormatter::quantize(...$arguments));
+        }
+    }
 }
