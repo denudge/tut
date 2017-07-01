@@ -16,9 +16,9 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $user_id
  * @property int $period
- * @property \DateTime $date
- * @property \DateTime $start
- * @property \DateTime $end
+ * @property string $date
+ * @property string $start
+ * @property string $end
  * @property int $duration
  * @property int $customer_id
  * @property int $project_id
