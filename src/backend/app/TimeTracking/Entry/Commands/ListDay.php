@@ -17,7 +17,7 @@ use Illuminate\Support\Collection;
  * Class ListEntries
  * @package App\TimeTracking\Entry\Commands
  */
-class ListEntries
+class ListDay
 {
     /**
      * @var AddSum
@@ -37,11 +37,15 @@ class ListEntries
      * @return Collection
      * @throws ModelNotFoundException
      */
-    public function __invoke(): Collection
+    public function __invoke(\DateTime $date = null): Collection
     {
+        if ($date === null) {
+            $date = new \DateTime();
+        }
+
         // Collect entries
         /** @var Collection $entries */
-        $entries = Entry::where('date','=', (new \DateTime())->format('Y-m-d'))
+        $entries = Entry::where('date','=', $date->format('Y-m-d'))
             ->orderBy('date', 'ASC')
             ->orderBy('start', 'ASC')
             ->get();

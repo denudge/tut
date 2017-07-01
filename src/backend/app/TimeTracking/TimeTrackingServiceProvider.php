@@ -7,8 +7,9 @@ use App\TimeTracking\Entry\Commands\AddEntryConsole;
 use App\TimeTracking\Entry\Commands\DeleteEntryConsole;
 use App\TimeTracking\Entry\Commands\ExportEntries;
 use App\TimeTracking\Entry\Commands\ExportEntriesConsole;
-use App\TimeTracking\Entry\Commands\ListEntries;
-use App\TimeTracking\Entry\Commands\ListEntriesConsole;
+use App\TimeTracking\Entry\Commands\ListDay;
+use App\TimeTracking\Entry\Commands\ListDayConsole;
+use App\TimeTracking\Entry\Commands\ListWeekConsole;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -42,9 +43,12 @@ class TimeTrackingServiceProvider extends ServiceProvider
         $this->app->singleton(ExportEntriesConsole::class);
         $this->commands(ExportEntriesConsole::class);
 
-        $this->app->singleton(ListEntries::class);
-        $this->app->singleton(ListEntriesConsole::class);
-        $this->commands(ListEntriesConsole::class);
+        $this->app->singleton(ListDay::class);
+        $this->app->singleton(ListDayConsole::class);
+        $this->commands(ListDayConsole::class);
+
+        $this->app->singleton(ListWeekConsole::class);
+        $this->commands(ListWeekConsole::class);
 
         $this->app->singleton(DeleteEntryConsole::class);
         $this->commands(DeleteEntryConsole::class);

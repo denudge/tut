@@ -16,7 +16,7 @@ use Illuminate\Console\Command;
  * Class ListEntriesConsole
  * @package App\TimeTracking\Entry\Commands
  */
-class ListEntriesConsole extends Command
+class ListDayConsole extends Command
 {
     /**
      * @var string
@@ -29,13 +29,13 @@ class ListEntriesConsole extends Command
     protected $description = 'List today\'s entries';
 
     /**
-     * @param ListEntries $listEntries
+     * @param ListDay $listDay
      * @return int
      */
-    public function handle(ListEntries $listEntries)
+    public function handle(ListDay $listDay)
     {
         try {
-            $data = $listEntries();
+            $data = $listDay();
 
             $this->table(array_keys($data[0]), $data);
             return 0;
