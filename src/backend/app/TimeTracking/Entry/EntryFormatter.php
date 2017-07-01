@@ -23,7 +23,7 @@ class EntryFormatter
     public static function toExport(Entry $entry): array
     {
         return [
-            'Datum' => (!empty($entry->date) ? (new \DateTime($entry->date))->format('d.m.Y') : ''),
+            'Datum' => (!empty($entry->date) ? (new \DateTime($entry->date))->format('d.m.Y') : '') ,
             'Ticket' => $entry->ticket,
             'Dauer' => DurationFormatter::minutesToTime($entry->duration),
             'Beschreibung' => $entry->description,

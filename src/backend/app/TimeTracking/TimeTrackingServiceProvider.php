@@ -4,6 +4,7 @@ namespace App\TimeTracking;
 
 use App\TimeTracking\Entry\Commands\AddEntry;
 use App\TimeTracking\Entry\Commands\AddEntryConsole;
+use App\TimeTracking\Entry\Commands\DeleteEntryConsole;
 use App\TimeTracking\Entry\Commands\ExportEntries;
 use App\TimeTracking\Entry\Commands\ExportEntriesConsole;
 use App\TimeTracking\Entry\Commands\ListEntries;
@@ -44,5 +45,8 @@ class TimeTrackingServiceProvider extends ServiceProvider
         $this->app->singleton(ListEntries::class);
         $this->app->singleton(ListEntriesConsole::class);
         $this->commands(ListEntriesConsole::class);
+
+        $this->app->singleton(DeleteEntryConsole::class);
+        $this->commands(DeleteEntryConsole::class);
     }
 }
