@@ -10,6 +10,9 @@ use App\TimeTracking\Entry\Commands\ExportEntriesConsole;
 use App\TimeTracking\Entry\Commands\ListDay;
 use App\TimeTracking\Entry\Commands\ListDayConsole;
 use App\TimeTracking\Entry\Commands\ListWeekConsole;
+use App\TimeTracking\Jira\Commands\GetIssue;
+use App\TimeTracking\Jira\Commands\GetIssueConsole;
+use App\TimeTracking\Jira\JiraRestApiClient;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -52,5 +55,18 @@ class TimeTrackingServiceProvider extends ServiceProvider
 
         $this->app->singleton(DeleteEntryConsole::class);
         $this->commands(DeleteEntryConsole::class);
+
+        $this->app->singleton(JiraRestApiClient::class, function() {
+            return new JiraRestApiClient(
+                env('JIRA_URL'),
+                env('JIRA_USER'),
+                env('JIRA_PASSWORD'),
+                env('JIRA_VERSION')
+            );
+        });
+
+        $this->app->singleton(GetIssue::class);
+        $this->app->singleton(GetIssueConsole::class);
+        $this->commands(GetIssueConsole::class);
     }
 }
