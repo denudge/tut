@@ -13,6 +13,19 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Entry
  * @package App\TimeTracking\Entry
+ *
+ * @property int $user_id
+ * @property int $period
+ * @property \DateTime $date
+ * @property \DateTime $start
+ * @property \DateTime $end
+ * @property int $duration
+ * @property int $customer_id
+ * @property int $project_id
+ * @property string $ticket
+ * @property int $activity_id
+ * @property string $description
+ * @property int $jira_worklog_id
  */
 class Entry extends Model
 {
@@ -36,5 +49,6 @@ class Entry extends Model
         'ticket',
         'activity_id',
         'description',
+        'jira_worklog_id',
     ];
 }
