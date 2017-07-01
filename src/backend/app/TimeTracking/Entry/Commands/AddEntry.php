@@ -9,6 +9,7 @@
 namespace App\TimeTracking\Entry\Commands;
 
 use App\TimeTracking\Duration\DuractionFactory;
+use App\TimeTracking\Duration\Duration;
 use App\TimeTracking\Entry\Entry;
 
 /**
@@ -43,12 +44,20 @@ class AddEntry
             throw new \InvalidArgumentException('Description cannot be empty!');
         }
 
-        $dur = DuractionFactory::fromString($duration);
-        $minutes = $dur->toMinutes();
-
-        $start = new \DateTime();
         $end = new \DateTime();
-        $start->sub(new \DateInterval('PT' . $minutes . 'M'));
+
+        // auto duration detection
+        $regexp = '/^auto([\/](\d+))?$/';
+        if (preg_match($regexp, $duration, $matches)) {
+            $result = $this->detectDuration($matches[2] ?? 0);
+            $minutes = $result['minutes'];
+            $start = $result['start'];
+        } else {
+            $dur = DuractionFactory::fromString($duration);
+            $minutes = $dur->toMinutes();
+            $start = new \DateTime();
+            $start->sub(new \DateInterval('PT' . $minutes . 'M'));
+        }
 
         $entry = Entry::create([
             'user_id' => 0,
@@ -64,5 +73,40 @@ class AddEntry
         ]);
 
         return $entry;
+    }
+
+    /**
+     * @param int $quantize
+     * @return array
+     * @throws \LogicException
+     */
+    private function detectDuration(int $quantize = 0): array
+    {
+        $end = new \DateTime();
+        $day = $end->format('Y-m-d');
+
+        $lastEntry = Entry::where('date','=',$day)
+            ->where('end', '<=', $end)
+            ->orderBy('end', 'DESC')
+            ->first();
+
+        if ($lastEntry === null) {
+            throw new \LogicException('Cannot autodetect duration: No previous entry found.');
+        }
+
+        $start = new \DateTime($lastEntry->end);
+        $interval = $end->diff($start);
+        $minutes = abs(Duration::HOUR * $interval->h + $interval->m);
+
+        // quantize
+        if ($quantize > 0) {
+            $factor = (int) ceil($minutes / $quantize);
+            $minutes = (int) ($factor * $quantize);
+        }
+
+        return [
+            'minutes' => $minutes,
+            'start' => $start,
+        ];
     }
 }

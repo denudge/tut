@@ -22,40 +22,22 @@ class ExportEntriesConsole extends Command
 
     protected $description = 'Export entries of a given period as CSV data';
 
-    public function handle()
+    public function handle(ExportEntries $exportEntries)
     {
-        // Collect entries
-        $entries = Entry::where('period','=', $this->argument('period'))
-            ->orderBy('date', 'ASC')
-            ->orderBy('start', 'ASC')
-            ->get();
+        $data = $exportEntries($this->argument('period'));
 
-        if (! $entries->count()) {
+        if (!count($data)) {
             $this->info('We could not find any entry.');
             return 0;
-        }
-
-        // Format entries
-        $out = [];
-        $sum = 0;
-        foreach ($entries as $entry) {
-            $sum += $entry->duration;
-            $out[] = [
-                'Datum' => (new \DateTime($entry->date))->format('d.m.Y'),
-                'Ticket' => $entry->ticket,
-                'Dauer' => DurationFormatter::minutesToTime($entry->duration),
-                'Beschreibung' => $entry->description,
-            ];
         }
 
         // write data to csv
         $outfilepath = 'export_' . $this->argument('period') . '.csv';
         $outfile = fopen($outfilepath, 'w+');
-        fputcsv($outfile, array_keys($out[0]));
-        foreach($out as $line) {
+        fputcsv($outfile, array_keys($data[0]));
+        foreach($data as $line) {
             fputcsv($outfile, array_values($line));
         }
-        fputcsv($outfile, [ 'Summe', '', DurationFormatter::minutesToTime($sum) ]);
         fclose($outfile);
 
         $this->info('Data has been exported to ' . $outfilepath);
