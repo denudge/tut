@@ -11,15 +11,15 @@ namespace App\TimeTracking\Jira\Commands;
 use App\TimeTracking\Jira\JiraRestApiClient;
 
 /**
- * Class GetIssue
+ * Class GetIssueWorklog
  * @package App\TimeTracking\Jira\Commands
  */
-class GetIssue
+class GetIssueWorklog
 {
     /**
      * @const string
      */
-    const URI = 'issue/%s';
+    const URI = 'issue/%s/worklog';
 
     /**
      * @const string
@@ -47,7 +47,7 @@ class GetIssue
      */
     public function __invoke(string $ticket)
     {
-        \Log::debug('Fetching JIRA issue with key ' . $ticket . '.');
+        \Log::debug('Fetching JIRA issue worklog with key ' . $ticket . '.');
 
         try {
             $target = sprintf(static::URI, $ticket);

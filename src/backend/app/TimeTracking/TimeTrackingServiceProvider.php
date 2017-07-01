@@ -12,6 +12,8 @@ use App\TimeTracking\Entry\Commands\ListDayConsole;
 use App\TimeTracking\Entry\Commands\ListWeekConsole;
 use App\TimeTracking\Jira\Commands\GetIssue;
 use App\TimeTracking\Jira\Commands\GetIssueConsole;
+use App\TimeTracking\Jira\Commands\GetIssueWorklog;
+use App\TimeTracking\Jira\Commands\GetIssueWorklogConsole;
 use App\TimeTracking\Jira\JiraRestApiClient;
 use Illuminate\Support\ServiceProvider;
 
@@ -68,5 +70,9 @@ class TimeTrackingServiceProvider extends ServiceProvider
         $this->app->singleton(GetIssue::class);
         $this->app->singleton(GetIssueConsole::class);
         $this->commands(GetIssueConsole::class);
+
+        $this->app->singleton(GetIssueWorklog::class);
+        $this->app->singleton(GetIssueWorklogConsole::class);
+        $this->commands(GetIssueWorklogConsole::class);
     }
 }
