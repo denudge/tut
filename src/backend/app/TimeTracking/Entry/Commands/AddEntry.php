@@ -12,6 +12,7 @@ use App\TimeTracking\Duration\DuractionFactory;
 use App\TimeTracking\Duration\Duration;
 use App\TimeTracking\Duration\DurationFormatter;
 use App\TimeTracking\Entry\Entry;
+use App\TimeTracking\Entry\Event\EntryAddedEvent;
 
 /**
  * Class AddEntry
@@ -69,12 +70,17 @@ class AddEntry
             'project_id' => 0,
             'activity_id' => 0,
             'date' => $day,
-            'start' => $start,
-            'end' => $end,
+            'start' => $start->format('Y-m-d H:i:s'),
+            'end' => $end->format('Y-m-d H:i:s'),
             'duration' => $minutes,
             'ticket' => (string) $ticket,
             'description' => (string) $description,
+            'jira_worklog_id' => 0,
         ]);
+
+        \Log::debug('Created timetracking entry with ID ' . $entry->id);
+
+        event(new EntryAddedEvent($entry));
 
         return $entry;
     }
