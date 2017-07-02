@@ -8,11 +8,32 @@ Until there is a frontend or anything to do with authentication, you can use it 
 
 Simplicity of use, quite clean code, modern frameworks and tools.
 
+## Installation
+
+### MySQL configuration
+
+Create a mysql database and add your credentials to _.env_ in _src/backend_.
+If you have no mysql running on your box, you can use the Homestead virtual machine (see _Homestead/Homestead.yaml_ for details).
+
+### JIRA configuration
+
+put the following variables into _.env_:
+
+    JIRA_USER=<yourJiraUserName>
+    JIRA_PASSWORD=<yourJiraPassword>
+    JIRA_URL=<yourJiraUrl>
+    JIRA_VERSION=2
+
+The JIRA URL may be _https://yourdomain.atlassian.net_. The JIRA VERSION means the API version. Leave this to "2".
+
 ## How to use
 
-If you have no mysql running on your box, you can use the Homestead virtual machine.
-In any case: Go to src/backend and use laravel's _artisan_ command line to call various functions (see below).
+In any case: Go to _src/backend_ and use laravel's _artisan_ command line to call various functions (see below).
 Be even nicer to yourself and create nifty shell aliases.
+
+### Configure JIRA connection
+
+Add the following keys to your .env file.
 
 ### Track new times
 
