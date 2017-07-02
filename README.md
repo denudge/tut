@@ -22,7 +22,7 @@ You can use JIRA durations, e.g. "2h 30m" as duration, or use autodetection with
 
 ### Export your worklog to CSV
 
-    $php artisan entry:export <period>
+    $ php artisan entry:export <period>
 
 You can specify your period with YYYYmm, e.g. 201706.
 
