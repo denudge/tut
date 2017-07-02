@@ -28,12 +28,8 @@ The JIRA URL may be _https://yourdomain.atlassian.net_. The JIRA VERSION means t
 
 ## How to use
 
-In any case: Go to _src/backend_ and use laravel's _artisan_ command line to call various functions (see below).
+Go to _src/backend_ and use laravel's _artisan_ command line to call various functions (see below).
 Be even nicer to yourself and create nifty shell aliases.
-
-### Configure JIRA connection
-
-Add the following keys to your .env file.
 
 ### Track new times
 
